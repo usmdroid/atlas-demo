@@ -6,136 +6,34 @@
 <title>ATLAS — Zamonaviy kiyim</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Outfit:wght@300;400;500;600&display=swap');
-
-  :root{
-    --bg:#f4f1ea;
-    --ink:#1a1815;
-    --paper:#fffefb;
-    --accent:#b8442e;
-    --muted:#8a8377;
-    --line:#e3ddd1;
-    --shadow:rgba(26,24,21,.08);
-  }
+  :root{--bg:#f4f1ea;--ink:#1a1815;--paper:#fffefb;--accent:#b8442e;--muted:#8a8377;--line:#e3ddd1;--shadow:rgba(26,24,21,.08)}
   *{margin:0;padding:0;box-sizing:border-box}
-  body{
-    background:var(--bg);
-    color:var(--ink);
-    font-family:'Outfit',sans-serif;
-    -webkit-font-smoothing:antialiased;
-  }
-
-  /* Header */
-  header{
-    padding:28px 40px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    border-bottom:1px solid var(--line);
-    position:sticky;top:0;z-index:50;
-    background:rgba(244,241,234,.85);
-    backdrop-filter:blur(12px);
-  }
-  .logo{
-    font-family:'Fraunces',serif;
-    font-size:26px;font-weight:600;
-    letter-spacing:.18em;
-  }
+  body{background:var(--bg);color:var(--ink);font-family:'Outfit',sans-serif;-webkit-font-smoothing:antialiased}
+  header{padding:28px 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50;background:rgba(244,241,234,.85);backdrop-filter:blur(12px)}
+  .logo{font-family:'Fraunces',serif;font-size:26px;font-weight:600;letter-spacing:.18em}
   .logo span{color:var(--accent)}
-  nav{display:flex;gap:34px;font-size:14px;font-weight:400;color:var(--muted)}
+  nav{display:flex;gap:34px;font-size:14px;color:var(--muted)}
   nav a{color:inherit;text-decoration:none;transition:color .2s}
   nav a:hover{color:var(--ink)}
   .cart{font-size:13px;border:1px solid var(--ink);padding:9px 18px;border-radius:30px;cursor:pointer;transition:.2s}
   .cart:hover{background:var(--ink);color:var(--paper)}
-
-  /* Hero */
-  .hero{
-    padding:90px 40px 70px;
-    text-align:center;
-    position:relative;
-    overflow:hidden;
-  }
-  .hero h1{
-    font-family:'Fraunces',serif;
-    font-size:clamp(48px,9vw,116px);
-    font-weight:400;
-    line-height:.92;
-    letter-spacing:-.02em;
-  }
+  .hero{padding:90px 40px 70px;text-align:center}
+  .hero h1{font-family:'Fraunces',serif;font-size:clamp(48px,9vw,116px);font-weight:400;line-height:.92;letter-spacing:-.02em}
   .hero h1 em{font-style:italic;color:var(--accent)}
-  .hero p{
-    margin:26px auto 0;
-    max-width:480px;
-    color:var(--muted);
-    font-size:16px;
-    line-height:1.6;
-  }
-  .badge{
-    display:inline-block;
-    margin-bottom:24px;
-    font-size:12px;letter-spacing:.22em;text-transform:uppercase;
-    color:var(--accent);
-    border:1px solid var(--accent);
-    padding:7px 16px;border-radius:30px;
-  }
-
-  /* Grid */
-  .shop-head{
-    padding:0 40px;
-    display:flex;align-items:baseline;justify-content:space-between;
-    margin-bottom:30px;
-  }
+  .hero p{margin:26px auto 0;max-width:480px;color:var(--muted);font-size:16px;line-height:1.6}
+  .badge{display:inline-block;margin-bottom:24px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);padding:7px 16px;border-radius:30px}
+  .shop-head{padding:0 40px;display:flex;align-items:baseline;justify-content:space-between;margin-bottom:30px}
   .shop-head h2{font-family:'Fraunces',serif;font-weight:500;font-size:30px}
   .shop-head span{color:var(--muted);font-size:14px}
-
-  .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-    gap:8px 24px;
-    padding:0 40px 90px;
-  }
-  .card{
-    background:var(--paper);
-    border-radius:4px;
-    overflow:hidden;
-    transition:transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s;
-    display:flex;flex-direction:column;
-  }
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px 24px;padding:0 40px 90px}
+  .card{background:var(--paper);border-radius:4px;overflow:hidden;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s;display:flex;flex-direction:column}
   .card:hover{transform:translateY(-6px);box-shadow:0 22px 40px -18px var(--shadow)}
-  .thumb{
-    position:relative;
-    aspect-ratio:3/4;
-    overflow:hidden;
-    background:var(--line);
-  }
-  .thumb img{
-    width:100%;height:100%;object-fit:cover;
-    transition:transform .6s cubic-bezier(.2,.8,.2,1);
-  }
+  .thumb{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--line)}
+  .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
   .card:hover .thumb img{transform:scale(1.05)}
-  .tag{
-    position:absolute;top:14px;left:14px;
-    background:var(--paper);
-    font-size:11px;letter-spacing:.1em;text-transform:uppercase;
-    padding:6px 12px;border-radius:30px;
-    color:var(--muted);
-  }
+  .tag{position:absolute;top:14px;left:14px;background:var(--paper);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;border-radius:30px;color:var(--muted)}
   .tag.new{color:var(--accent)}
-  .tryon{
-    position:absolute;
-    bottom:14px;left:14px;right:14px;
-    background:var(--ink);
-    color:var(--paper);
-    border:none;
-    padding:14px;
-    border-radius:3px;
-    font-family:'Outfit',sans-serif;
-    font-size:13px;font-weight:500;
-    letter-spacing:.04em;
-    cursor:pointer;
-    display:flex;align-items:center;justify-content:center;gap:8px;
-    opacity:0;transform:translateY(12px);
-    transition:opacity .3s, transform .3s, background .2s;
-  }
+  .tryon{position:absolute;bottom:14px;left:14px;right:14px;background:var(--ink);color:var(--paper);border:none;padding:14px;border-radius:3px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;letter-spacing:.04em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;opacity:0;transform:translateY(12px);transition:opacity .3s,transform .3s,background .2s}
   .card:hover .tryon{opacity:1;transform:translateY(0)}
   .tryon:hover{background:var(--accent)}
   .tryon svg{width:16px;height:16px}
@@ -144,172 +42,202 @@
   .info .cat{font-size:12px;color:var(--muted);margin-bottom:10px}
   .price{font-family:'Fraunces',serif;font-size:18px;font-weight:500}
   .price s{color:var(--muted);font-size:14px;margin-right:8px;font-family:'Outfit'}
-
-  footer{
-    border-top:1px solid var(--line);
-    padding:50px 40px;
-    display:flex;justify-content:space-between;align-items:center;
-    flex-wrap:wrap;gap:20px;
-    color:var(--muted);font-size:13px;
-  }
+  footer{border-top:1px solid var(--line);padding:50px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;color:var(--muted);font-size:13px}
   footer .logo{font-size:18px;color:var(--ink)}
-
-  /* Modal */
-  .overlay{
-    position:fixed;inset:0;
-    background:rgba(26,24,21,.55);
-    backdrop-filter:blur(4px);
-    display:none;align-items:center;justify-content:center;
-    z-index:100;padding:20px;
-    opacity:0;transition:opacity .3s;
-  }
+  .overlay{position:fixed;inset:0;background:rgba(26,24,21,.6);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:100;padding:20px;opacity:0;transition:opacity .3s}
   .overlay.show{display:flex;opacity:1}
-  .modal{
-    background:var(--paper);
-    border-radius:8px;
-    max-width:440px;width:100%;
-    padding:40px 36px;
-    text-align:center;
-    transform:scale(.94);transition:transform .3s;
-    position:relative;
-  }
+  .modal{background:var(--paper);border-radius:10px;max-width:760px;width:100%;max-height:92vh;overflow:auto;transform:scale(.96);transition:transform .3s;position:relative}
   .overlay.show .modal{transform:scale(1)}
-  .modal .close{
-    position:absolute;top:18px;right:20px;
-    background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted);
-  }
-  .modal .picon{
-    width:62px;height:62px;border-radius:50%;
-    background:var(--bg);
-    display:flex;align-items:center;justify-content:center;
-    margin:0 auto 20px;
-  }
-  .modal .picon svg{width:28px;height:28px;color:var(--accent)}
-  .modal h3{font-family:'Fraunces',serif;font-size:24px;font-weight:500;margin-bottom:6px}
-  .modal .pname{color:var(--accent);font-weight:500;margin-bottom:14px}
-  .modal p{color:var(--muted);font-size:14px;line-height:1.6}
-  .modal .note{
-    margin-top:22px;font-size:12px;color:var(--muted);
-    background:var(--bg);padding:12px 16px;border-radius:6px;
-  }
-
-  @media(max-width:600px){
-    header{padding:18px 20px}
-    nav{display:none}
-    .hero{padding:60px 20px 50px}
-    .grid,.shop-head{padding-left:20px;padding-right:20px}
-    .tryon{opacity:1;transform:none}
-  }
+  .modal .close{position:absolute;top:16px;right:18px;background:rgba(255,255,255,.8);border:none;width:34px;height:34px;border-radius:50%;font-size:20px;cursor:pointer;color:var(--ink);z-index:5;display:flex;align-items:center;justify-content:center}
+  .mhead{padding:26px 32px 0}
+  .mhead .t{font-family:'Fraunces',serif;font-size:24px;font-weight:500}
+  .mhead .s{color:var(--muted);font-size:13px;margin-top:4px}
+  .stage{display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:24px 32px 32px}
+  @media(max-width:640px){.stage{grid-template-columns:1fr}}
+  .panel{display:flex;flex-direction:column}
+  .panel .label{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+  .imgbox{aspect-ratio:3/4;border-radius:8px;overflow:hidden;background:var(--bg);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;position:relative}
+  .imgbox img{width:100%;height:100%;object-fit:cover}
+  .imgbox .ph{color:var(--muted);font-size:13px;text-align:center;padding:20px}
+  .uploadbtn{margin-top:12px;border:1px dashed var(--muted);background:none;color:var(--ink);padding:14px;border-radius:8px;cursor:pointer;font-family:'Outfit';font-size:14px;display:flex;align-items:center;justify-content:center;gap:8px;transition:.2s}
+  .uploadbtn:hover{border-color:var(--accent);color:var(--accent)}
+  .uploadbtn svg{width:18px;height:18px}
+  .gobtn{grid-column:1/-1;background:var(--ink);color:var(--paper);border:none;padding:16px;border-radius:8px;font-family:'Outfit';font-size:15px;font-weight:500;letter-spacing:.03em;cursor:pointer;transition:.2s}
+  .gobtn:hover:not(:disabled){background:var(--accent)}
+  .gobtn:disabled{opacity:.4;cursor:not-allowed}
+  .loader{padding:48px 32px;text-align:center}
+  .spinner{width:54px;height:54px;margin:0 auto 28px;border:3px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .steps{max-width:340px;margin:0 auto;text-align:left}
+  .step{display:flex;align-items:center;gap:12px;padding:10px 0;color:var(--muted);font-size:14px;transition:.3s}
+  .step.active{color:var(--ink);font-weight:500}
+  .step.done{color:var(--accent)}
+  .step .dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:.3s}
+  .step.active .dot{border-color:var(--accent)}
+  .step.done .dot{background:var(--accent);border-color:var(--accent);color:#fff}
+  .ptime{margin-top:24px;color:var(--muted);font-size:12px}
+  .result{padding:24px 32px 32px;text-align:center}
+  .result img{max-height:60vh;border-radius:10px;box-shadow:0 18px 40px -16px var(--shadow)}
+  .result .again{margin-top:20px;background:none;border:1px solid var(--ink);color:var(--ink);padding:12px 26px;border-radius:30px;cursor:pointer;font-family:'Outfit';font-size:14px;transition:.2s}
+  .result .again:hover{background:var(--ink);color:var(--paper)}
+  .errbox{padding:36px 32px;text-align:center;color:var(--accent)}
+  .hidden{display:none!important}
+  @media(max-width:600px){header{padding:18px 20px}nav{display:none}.hero{padding:60px 20px 50px}.grid,.shop-head{padding-left:20px;padding-right:20px}.tryon{opacity:1;transform:none}}
 </style>
 </head>
 <body>
-
 <header>
   <div class="logo">AT<span>·</span>LAS</div>
-  <nav>
-    <a href="#">Ayollar</a>
-    <a href="#">Erkaklar</a>
-    <a href="#">Yangi</a>
-    <a href="#">Kolleksiya</a>
-  </nav>
+  <nav><a href="#">Ayollar</a><a href="#">Erkaklar</a><a href="#">Yangi</a><a href="#">Kolleksiya</a></nav>
   <div class="cart">Savatcha (0)</div>
 </header>
-
 <section class="hero">
   <span class="badge">Virtual kiyib ko'rish</span>
   <h1>Kiyib ko'ring,<br><em>keyin</em> sotib oling</h1>
   <p>Har bir kiyimni o'zingizning rasmingizda sinab ko'ring. Endi tasavvur qilish shart emas — ko'ring.</p>
 </section>
-
-<div class="shop-head">
-  <h2>Kolleksiya</h2>
-  <span id="count">12 mahsulot</span>
-</div>
-
+<div class="shop-head"><h2>Kolleksiya</h2><span id="count">12 mahsulot</span></div>
 <div class="grid" id="grid"></div>
-
 <footer>
-  <div class="logo">AT·LAS</div>
+  <div class="logo">ATLAS</div>
   <div>Virtual try-on demo · 2026</div>
-  <div>Instagram · Telegram · info@atlas.uz</div>
+  <div>info@atlas.uz</div>
 </footer>
-
-<!-- Try-on modal (placeholder — keyin plugin ulanadi) -->
 <div class="overlay" id="overlay">
   <div class="modal">
-    <button class="close" onclick="closeModal()">×</button>
-    <div class="picon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-        <path d="M20 7h-3l-2-3H9L7 7H4a1 1 0 00-1 1v11a1 1 0 001 1h16a1 1 0 001-1V8a1 1 0 00-1-1z"/>
-        <circle cx="12" cy="13" r="3.5"/>
-      </svg>
+    <button class="close" onclick="closeModal()" aria-label="Yopish">&times;</button>
+    <div id="view-select">
+      <div class="mhead"><div class="t">Virtual kiyib ko'rish</div><div class="s" id="selProduct">—</div></div>
+      <div class="stage">
+        <div class="panel">
+          <div class="label">Tanlangan kiyim</div>
+          <div class="imgbox"><img id="clothPreview" alt="kiyim"></div>
+        </div>
+        <div class="panel">
+          <div class="label">Sizning rasmingiz</div>
+          <div class="imgbox" id="personBox">
+            <span class="ph" id="personPh">Butun bo'y ko'rinadigan,<br>old tomondan olingan rasm yuklang</span>
+            <img id="personPreview" class="hidden" alt="siz">
+          </div>
+          <button class="uploadbtn" onclick="document.getElementById('fileInput').click()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 16V4M12 4l-4 4M12 4l4 4"/><path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
+            Rasm yuklash</button>
+          <input type="file" id="fileInput" accept="image/*" class="hidden" onchange="onFile(event)">
+        </div>
+        <button class="gobtn" id="goBtn" disabled onclick="runTryOn()">Kiyib ko'rish</button>
+      </div>
     </div>
-    <h3>Virtual kiyib ko'rish</h3>
-    <div class="pname" id="modalProduct">—</div>
-    <p>Rasmingizni yuklang va bu kiyimni o'zingizda ko'ring. Bir necha soniyada natija tayyor.</p>
-    <div class="note">⚙️ Demo rejimi — try-on dvigateli tez orada ulanadi</div>
+    <div id="view-loading" class="hidden">
+      <div class="loader"><div class="spinner"></div><div class="steps" id="steps"></div>
+        <div class="ptime">Bu odatda 15–25 soniya davom etadi</div></div>
+    </div>
+    <div id="view-result" class="hidden">
+      <div class="mhead"><div class="t">Mana, sizda qanday ko'rinadi</div></div>
+      <div class="result"><img id="resultImg" alt="natija">
+        <div><button class="again" onclick="resetToSelect()">Boshqa kiyim sinash</button></div></div>
+    </div>
+    <div id="view-error" class="hidden">
+      <div class="mhead"><div class="t">Xatolik yuz berdi</div></div>
+      <div class="errbox"><p id="errMsg">Qaytadan urinib ko'ring.</p>
+        <div style="margin-top:20px"><button class="again" onclick="resetToSelect()">Qaytadan</button></div></div>
+    </div>
   </div>
 </div>
-
 <script>
-  // Mahsulotlar — Unsplash rasmlari (demo uchun)
+  // ============================================================
+  //  MODAL ENDPOINT URL — deploy qilgandan keyin shu yerga yoz
+  // ============================================================
+  const MODAL_URL = "MODAL_ENDPOINT_URL_SHU_YERGA";
+
   const products = [
-    {name:"Klassik oq ko'ylak",    cat:"Erkaklar · Ustki",  price:"420 000",  old:null,        img:"https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=600&q=80", tag:"Yangi", isNew:true},
-    {name:"Bej trenç palto",       cat:"Ayollar · Ustki",   price:"1 250 000",old:"1 500 000", img:"https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&q=80", tag:"Chegirma"},
-    {name:"Denim ko'ylak",         cat:"Unisex",            price:"380 000",  old:null,        img:"https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&q=80", tag:null},
-    {name:"Trikotaj sviter",       cat:"Ayollar · Ustki",   price:"540 000",  old:null,        img:"https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=600&q=80", tag:"Yangi", isNew:true},
-    {name:"Charm kurtka",          cat:"Erkaklar · Ustki",  price:"1 890 000",old:null,        img:"https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&q=80", tag:null},
-    {name:"Gulli yozgi libos",     cat:"Ayollar · Libos",   price:"680 000",  old:"790 000",   img:"https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600&q=80", tag:"Chegirma"},
-    {name:"Polo futbolka",         cat:"Erkaklar · Ustki",  price:"260 000",  old:null,        img:"https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=600&q=80", tag:null},
-    {name:"Yengil kashmir palto",  cat:"Ayollar · Ustki",   price:"2 100 000",old:null,        img:"https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=600&q=80", tag:"Yangi", isNew:true},
-    {name:"Chiziqli ko'ylak",      cat:"Unisex",            price:"340 000",  old:null,        img:"https://images.unsplash.com/photo-1620012253295-c15cc3e65df4?w=600&q=80", tag:null},
-    {name:"Sport hudi",            cat:"Unisex · Ustki",    price:"450 000",  old:"520 000",   img:"https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&q=80", tag:"Chegirma"},
-    {name:"Klassik blazer",        cat:"Erkaklar · Ustki",  price:"1 450 000",old:null,        img:"https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600&q=80", tag:null},
-    {name:"Shoyi bluzka",          cat:"Ayollar · Ustki",   price:"590 000",  old:null,        img:"https://images.unsplash.com/photo-1564257631407-4deb1f99d992?w=600&q=80", tag:"Yangi", isNew:true},
+    {name:"Klassik oq ko'ylak",   cat:"Erkaklar · Ustki", type:"upper",   price:"420 000",  old:null,        img:"https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=600&q=80", tag:"Yangi", isNew:true},
+    {name:"Bej trentch palto",    cat:"Ayollar · Ustki",  type:"overall", price:"1 250 000",old:"1 500 000", img:"https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&q=80", tag:"Chegirma"},
+    {name:"Denim ko'ylak",        cat:"Unisex",           type:"upper",   price:"380 000",  old:null,        img:"https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&q=80", tag:null},
+    {name:"Trikotaj sviter",      cat:"Ayollar · Ustki",  type:"upper",   price:"540 000",  old:null,        img:"https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=600&q=80", tag:"Yangi", isNew:true},
+    {name:"Charm kurtka",         cat:"Erkaklar · Ustki", type:"upper",   price:"1 890 000",old:null,        img:"https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&q=80", tag:null},
+    {name:"Gulli yozgi libos",    cat:"Ayollar · Libos",  type:"overall", price:"680 000",  old:"790 000",   img:"https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600&q=80", tag:"Chegirma"},
+    {name:"Polo futbolka",        cat:"Erkaklar · Ustki", type:"upper",   price:"260 000",  old:null,        img:"https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=600&q=80", tag:null},
+    {name:"Yengil kashmir palto", cat:"Ayollar · Ustki",  type:"overall", price:"2 100 000",old:null,        img:"https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=600&q=80", tag:"Yangi", isNew:true},
+    {name:"Chiziqli ko'ylak",     cat:"Unisex",           type:"upper",   price:"340 000",  old:null,        img:"https://images.unsplash.com/photo-1620012253295-c15cc3e65df4?w=600&q=80", tag:null},
+    {name:"Sport hudi",           cat:"Unisex · Ustki",   type:"upper",   price:"450 000",  old:"520 000",   img:"https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&q=80", tag:"Chegirma"},
+    {name:"Klassik blazer",       cat:"Erkaklar · Ustki", type:"upper",   price:"1 450 000",old:null,        img:"https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600&q=80", tag:null},
+    {name:"Shoyi bluzka",         cat:"Ayollar · Ustki",  type:"upper",   price:"590 000",  old:null,        img:"https://images.unsplash.com/photo-1564257631407-4deb1f99d992?w=600&q=80", tag:"Yangi", isNew:true},
   ];
-
-  const grid = document.getElementById('grid');
-  document.getElementById('count').textContent = products.length + " mahsulot";
-
-  products.forEach((p, i) => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.style.animationDelay = (i*0.05)+'s';
-    const tagHtml = p.tag ? `<div class="tag ${p.isNew?'new':''}">${p.tag}</div>` : '';
-    const priceHtml = p.old
-      ? `<div class="price"><s>${p.old}</s>${p.price} so'm</div>`
-      : `<div class="price">${p.price} so'm</div>`;
-    card.innerHTML = `
-      <div class="thumb">
-        ${tagHtml}
-        <img src="${p.img}" alt="${p.name}" loading="lazy"
-             onerror="this.style.display='none';this.parentNode.style.background='linear-gradient(135deg,#e3ddd1,#cfc7b6)'">
-        <button class="tryon" onclick="openModal('${p.name.replace(/'/g,"\\'")}')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M20 7h-3l-2-3H9L7 7H4a1 1 0 00-1 1v11a1 1 0 001 1h16a1 1 0 001-1V8a1 1 0 00-1-1z"/>
-            <circle cx="12" cy="13" r="3.5"/>
-          </svg>
-          Sinab ko'rish
-        </button>
-      </div>
-      <div class="info">
-        <div class="name">${p.name}</div>
-        <div class="cat">${p.cat}</div>
-        ${priceHtml}
-      </div>`;
+  const grid=document.getElementById('grid');
+  document.getElementById('count').textContent=products.length+" mahsulot";
+  products.forEach((p,i)=>{
+    const card=document.createElement('div');card.className='card';
+    const tagHtml=p.tag?'<div class="tag '+(p.isNew?'new':'')+'">'+p.tag+'</div>':'';
+    const priceHtml=p.old?'<div class="price"><s>'+p.old+'</s>'+p.price+" so'm</div>":'<div class="price">'+p.price+" so'm</div>";
+    card.innerHTML='<div class="thumb">'+tagHtml+
+      '<img src="'+p.img+'" alt="'+p.name+'" loading="lazy" onerror="this.style.display=\'none\';this.parentNode.style.background=\'linear-gradient(135deg,#e3ddd1,#cfc7b6)\'">'+
+      '<button class="tryon" onclick="openModal('+i+')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7h-3l-2-3H9L7 7H4a1 1 0 00-1 1v11a1 1 0 001 1h16a1 1 0 001-1V8a1 1 0 00-1-1z"/><circle cx="12" cy="13" r="3.5"/></svg>Sinab ko\'rish</button>'+
+      '</div><div class="info"><div class="name">'+p.name+'</div><div class="cat">'+p.cat+'</div>'+priceHtml+'</div>';
     grid.appendChild(card);
   });
-
-  // Modal — hozircha placeholder. Modal API tayyor bo'lgach,
-  // openModal ichida shu joydan plugin chaqiriladi.
-  const overlay = document.getElementById('overlay');
-  function openModal(name){
-    document.getElementById('modalProduct').textContent = name;
-    overlay.classList.add('show');
+  let currentProduct=null,personDataUrl=null;
+  const overlay=document.getElementById('overlay');
+  function show(view){['select','loading','result','error'].forEach(v=>{document.getElementById('view-'+v).classList.toggle('hidden',v!==view)})}
+  function openModal(i){
+    currentProduct=products[i];personDataUrl=null;
+    document.getElementById('selProduct').textContent=currentProduct.name;
+    document.getElementById('clothPreview').src=currentProduct.img;
+    document.getElementById('personPreview').classList.add('hidden');
+    document.getElementById('personPh').classList.remove('hidden');
+    document.getElementById('goBtn').disabled=true;
+    show('select');overlay.classList.add('show');
   }
-  function closeModal(){ overlay.classList.remove('show'); }
-  overlay.addEventListener('click', e => { if(e.target===overlay) closeModal(); });
-  document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+  function closeModal(){overlay.classList.remove('show')}
+  function resetToSelect(){openModal(products.indexOf(currentProduct))}
+  overlay.addEventListener('click',e=>{if(e.target===overlay)closeModal()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+  function onFile(e){
+    const file=e.target.files[0];if(!file)return;
+    const reader=new FileReader();
+    reader.onload=ev=>{
+      personDataUrl=ev.target.result;
+      const img=document.getElementById('personPreview');
+      img.src=personDataUrl;img.classList.remove('hidden');
+      document.getElementById('personPh').classList.add('hidden');
+      document.getElementById('goBtn').disabled=false;
+    };
+    reader.readAsDataURL(file);
+  }
+  const stepLabels=["Rasmlar yuborilmoqda","Tana shakli aniqlanmoqda","Kiyim moslashtirilmoqda","Natija tayyorlanmoqda"];
+  let stepTimer=null;
+  function startSteps(){
+    const box=document.getElementById('steps');
+    box.innerHTML=stepLabels.map((l,i)=>'<div class="step" id="st'+i+'"><span class="dot">'+(i+1)+'</span><span>'+l+'</span></div>').join('');
+    const setActive=n=>{stepLabels.forEach((_,i)=>{const el=document.getElementById('st'+i);el.classList.toggle('active',i===n);el.classList.toggle('done',i<n);el.querySelector('.dot').textContent=i<n?'✓':(i+1)})};
+    setActive(0);
+    const delays=[1500,7000,7000];let acc=0;
+    delays.forEach((d,idx)=>{acc+=d;setTimeout(()=>{if(stepTimer!==null)setActive(idx+1)},acc)});
+    stepTimer=1;
+  }
+  function stopSteps(){stepTimer=null}
+  async function runTryOn(){
+    if(!personDataUrl||!currentProduct)return;
+    show('loading');startSteps();
+    try{
+      const clothB64=await urlToBase64(currentProduct.img);
+      const payload={person_image:personDataUrl.split(',')[1],cloth_image:clothB64,cloth_type:currentProduct.type};
+      const res=await fetch(MODAL_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      if(!res.ok)throw new Error('Server xatosi: '+res.status);
+      const blob=await res.blob();
+      const url=URL.createObjectURL(blob);
+      stopSteps();
+      document.getElementById('resultImg').src=url;
+      show('result');
+    }catch(err){
+      stopSteps();
+      document.getElementById('errMsg').textContent=(err&&err.message)?err.message:'Noma\'lum xato. Qaytadan urinib ko\'ring.';
+      show('error');
+    }
+  }
+  async function urlToBase64(url){
+    const r=await fetch(url);const b=await r.blob();
+    return new Promise((resolve,reject)=>{const fr=new FileReader();fr.onload=()=>resolve(fr.result.split(',')[1]);fr.onerror=reject;fr.readAsDataURL(b)});
+  }
 </script>
 </body>
 </html>

@@ -82,7 +82,29 @@
   .result .again:hover{background:var(--ink);color:var(--paper)}
   .errbox{padding:36px 32px;text-align:center;color:var(--accent)}
   .hidden{display:none!important}
-  @media(max-width:600px){header{padding:18px 20px}nav{display:none}.hero{padding:60px 20px 50px}.grid,.shop-head{padding-left:20px;padding-right:20px}.tryon{opacity:1;transform:none}}
+  /* Tekshirish: tugmalar qatori + ikkilamchi tugma */
+  .btnrow{grid-column:1/-1;display:flex;gap:12px}
+  .btnrow .gobtn{flex:1}
+  .checkbtn{flex:1;background:none;color:var(--ink);border:1px solid var(--ink);padding:16px;border-radius:8px;font-family:'Outfit';font-size:15px;font-weight:500;letter-spacing:.03em;cursor:pointer;transition:.2s}
+  .checkbtn:hover:not(:disabled){background:var(--ink);color:var(--paper)}
+  .checkbtn:disabled{opacity:.4;cursor:not-allowed}
+  /* Tekshiruv natijasi ro'yxati (modal ichida) */
+  .checkresult{grid-column:1/-1;display:flex;flex-direction:column;gap:8px;margin-top:4px}
+  .citem{display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.45;padding:10px 12px;border-radius:8px;background:#fff;border:1px solid var(--line)}
+  .citem .ci-ic{flex-shrink:0;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;font-weight:600}
+  .citem.pass .ci-ic{background:#2e8b57}
+  .citem.warn .ci-ic{background:#d49a1a}
+  .citem.fail .ci-ic{background:var(--accent)}
+  .citem.skip .ci-ic{background:var(--muted)}
+  .citem.skip{opacity:.7}
+  /* Toast */
+  .toastwrap{position:fixed;top:20px;right:20px;z-index:200;display:flex;flex-direction:column;gap:10px;max-width:360px}
+  .toast{background:var(--ink);color:var(--paper);padding:14px 18px;border-radius:10px;font-size:14px;line-height:1.4;box-shadow:0 16px 36px -14px rgba(26,24,21,.5);opacity:0;transform:translateX(20px);transition:opacity .3s,transform .3s;border-left:4px solid var(--muted)}
+  .toast.show{opacity:1;transform:translateX(0)}
+  .toast.success{border-left-color:#2e8b57}
+  .toast.error{border-left-color:var(--accent)}
+  .toast.info{border-left-color:#d49a1a}
+  @media(max-width:600px){header{padding:18px 20px}nav{display:none}.hero{padding:60px 20px 50px}.grid,.shop-head{padding-left:20px;padding-right:20px}.tryon{opacity:1;transform:none}.toastwrap{left:20px;right:20px;max-width:none}}
 </style>
 </head>
 <body>
@@ -124,7 +146,11 @@
             Rasm yuklash</button>
           <input type="file" id="fileInput" accept="image/*" class="hidden" onchange="onFile(event)">
         </div>
-        <button class="gobtn" id="goBtn" disabled onclick="runTryOn()">Kiyib ko'rish</button>
+        <div class="btnrow">
+          <button class="checkbtn" id="checkBtn" disabled onclick="runCheck()">Tekshirish</button>
+          <button class="gobtn" id="goBtn" disabled onclick="runTryOn()">Kiyib ko'rish</button>
+        </div>
+        <div class="checkresult hidden" id="checkResult"></div>
       </div>
     </div>
     <div id="view-loading" class="hidden">
@@ -143,12 +169,15 @@
     </div>
   </div>
 </div>
+<div class="toastwrap" id="toastwrap"></div>
 <script>
   // ============================================================
   //  BACKEND ENDPOINT — Railway'da deploy qilingan backend
   //  (sayt endi to'g'ridan Modal'ga emas, backend orqali ishlaydi)
   // ============================================================
-  const BACKEND_URL = "https://tryon-backend-production-92ad.up.railway.app/api/tryon";
+  const API_BASE = "https://tryon-backend-production-92ad.up.railway.app/api";
+  const BACKEND_URL = API_BASE + "/tryon";   // Modal'ga (GPU) boradi
+  const CHECK_URL   = API_BASE + "/check";   // faqat tekshiradi, Modal'ga TEGMAYDI
   const API_KEY = "test-key-12345";   // sotuvchi kaliti (backend tekshiradi)
 
   // Kiyimlar — rasmlar repo'dagi clothes/ papkasidan (CORS muammosi yo'q)
@@ -184,6 +213,8 @@
     document.getElementById('personPreview').classList.add('hidden');
     document.getElementById('personPh').classList.remove('hidden');
     document.getElementById('goBtn').disabled=true;
+    document.getElementById('checkBtn').disabled=true;
+    const cr=document.getElementById('checkResult');cr.classList.add('hidden');cr.innerHTML='';
     show('select');overlay.classList.add('show');
   }
   function closeModal(){overlay.classList.remove('show')}
@@ -199,8 +230,52 @@
       img.src=personDataUrl;img.classList.remove('hidden');
       document.getElementById('personPh').classList.add('hidden');
       document.getElementById('goBtn').disabled=false;
+      document.getElementById('checkBtn').disabled=false;
+      // Yangi rasm yuklanganda eski tekshiruv natijasini tozalaymiz
+      const cr=document.getElementById('checkResult');cr.classList.add('hidden');cr.innerHTML='';
     };
     reader.readAsDataURL(file);
+  }
+  // ---- Toast (o'ng yuqori burchakda chiqadigan xabar) ----
+  function showToast(msg,type='info'){
+    const wrap=document.getElementById('toastwrap');
+    const t=document.createElement('div');
+    t.className='toast '+type;t.textContent=msg;
+    wrap.appendChild(t);
+    requestAnimationFrame(()=>t.classList.add('show'));
+    setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),320)},4800);
+  }
+  // ---- Tekshirish (Modal'ga TEGMAYDI — faqat /api/check) ----
+  const statusIcon={pass:'✓',warn:'!',fail:'✕',skip:'○'};
+  async function runCheck(){
+    if(!personDataUrl||!currentProduct)return;
+    const btn=document.getElementById('checkBtn');
+    const box=document.getElementById('checkResult');
+    const prev=btn.textContent;btn.disabled=true;btn.textContent='Tekshirilmoqda…';
+    box.classList.add('hidden');box.innerHTML='';
+    try{
+      const payload={person_image:personDataUrl.split(',')[1],cloth_type:currentProduct.type};
+      const res=await fetch(CHECK_URL,{method:'POST',headers:{'Content-Type':'application/json','X-Api-Key':API_KEY},body:JSON.stringify(payload)});
+      if(!res.ok)throw new Error('Server xatosi: '+res.status);
+      const rep=await res.json();
+      // 1) Console log
+      console.groupCollapsed('%cRasm tekshiruvi — '+(rep.ok?'YAROQLI ✓':'YAROQSIZ ✕'),'font-weight:bold;color:'+(rep.ok?'#2e8b57':'#b8442e'));
+      rep.checks.forEach(c=>console.log('['+c.status+'] '+c.label+': '+c.message));
+      console.log('Xulosa:',rep.summary);
+      console.groupEnd();
+      // 2) Modal ichida ko'rsatish
+      box.innerHTML=rep.checks.map(c=>
+        '<div class="citem '+c.status+'"><span class="ci-ic">'+(statusIcon[c.status]||'•')+'</span>'+
+        '<span class="ci-tx"><b>'+c.label+'</b> — '+c.message+'</span></div>').join('');
+      box.classList.remove('hidden');
+      // 3) Toast
+      showToast(rep.summary,rep.ok?'success':'error');
+    }catch(err){
+      showToast((err&&err.message)?err.message:'Tekshirishda xato yuz berdi','error');
+      console.error('Tekshirish xatosi:',err);
+    }finally{
+      btn.disabled=false;btn.textContent=prev;
+    }
   }
   const stepLabels=["Rasmlar yuborilmoqda","Tana shakli aniqlanmoqda","Kiyim moslashtirilmoqda","Natija tayyorlanmoqda"];
   let stepTimer=null;

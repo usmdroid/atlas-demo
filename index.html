@@ -77,7 +77,11 @@
   .step.done .dot{background:var(--accent);border-color:var(--accent);color:#fff}
   .ptime{margin-top:24px;color:var(--muted);font-size:12px}
   .result{padding:24px 32px 32px;text-align:center}
-  .result img{max-height:60vh;border-radius:10px;box-shadow:0 18px 40px -16px var(--shadow)}
+  .result .imgwrap{position:relative;display:inline-block}
+  .result img{max-height:60vh;border-radius:10px;box-shadow:0 18px 40px -16px var(--shadow);display:block}
+  .result .dlbtn{position:absolute;right:14px;bottom:14px;width:44px;height:44px;border-radius:50%;border:none;background:rgba(26,24,21,.72);backdrop-filter:blur(4px);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;box-shadow:0 4px 12px rgba(0,0,0,.25)}
+  .result .dlbtn:hover{background:var(--accent);transform:translateY(-2px)}
+  .result .dlbtn svg{width:20px;height:20px}
   .result .again{margin-top:20px;background:none;border:1px solid var(--ink);color:var(--ink);padding:12px 26px;border-radius:30px;cursor:pointer;font-family:'Outfit';font-size:14px;transition:.2s}
   .result .again:hover{background:var(--ink);color:var(--paper)}
   .errbox{padding:36px 32px;text-align:center;color:var(--accent)}
@@ -133,7 +137,10 @@
     </div>
     <div id="view-result" class="hidden">
       <div class="mhead"><div class="t">Mana, sizda qanday ko'rinadi</div></div>
-      <div class="result"><img id="resultImg" alt="natija">
+      <div class="result"><div class="imgwrap"><img id="resultImg" alt="natija">
+        <button class="dlbtn" onclick="downloadResult()" title="Yuklab olish" aria-label="Yuklab olish">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M12 15l-4-4M12 15l4-4"/><path d="M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
+        </button></div>
         <div><button class="again" onclick="resetToSelect()">Boshqa kiyim sinash</button></div></div>
     </div>
     <div id="view-error" class="hidden">
@@ -188,6 +195,19 @@
   }
   function closeModal(){overlay.classList.remove('show')}
   function resetToSelect(){openModal(products.indexOf(currentProduct))}
+
+  // Natija rasmni yuklab olish
+  function downloadResult(){
+    const img=document.getElementById('resultImg');
+    if(!img.src)return;
+    const a=document.createElement('a');
+    a.href=img.src;
+    const name=currentProduct?currentProduct.name.replace(/[^a-zA-Z0-9]/g,'-'):'natija';
+    a.download='atlas-tryon-'+name+'.webp';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
   overlay.addEventListener('click',e=>{if(e.target===overlay)closeModal()});
   document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
   function onFile(e){

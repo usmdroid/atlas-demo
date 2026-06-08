@@ -145,9 +145,11 @@
 </div>
 <script>
   // ============================================================
-  //  MODAL ENDPOINT — deploy qilingan URL
+  //  BACKEND ENDPOINT — Railway'da deploy qilingan backend
+  //  (sayt endi to'g'ridan Modal'ga emas, backend orqali ishlaydi)
   // ============================================================
-  const MODAL_URL = "https://elusm17--catvton-tryon-tryon-tryon-api.modal.run";
+  const BACKEND_URL = "https://tryon-backend-production-92ad.up.railway.app/api/tryon";
+  const API_KEY = "test-key-12345";   // sotuvchi kaliti (backend tekshiradi)
 
   // Kiyimlar — rasmlar repo'dagi clothes/ papkasidan (CORS muammosi yo'q)
   const products = [
@@ -218,7 +220,7 @@
     try{
       const clothB64=await urlToBase64(currentProduct.img);
       const payload={person_image:personDataUrl.split(',')[1],cloth_image:clothB64,cloth_type:currentProduct.type};
-      const res=await fetch(MODAL_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      const res=await fetch(BACKEND_URL,{method:'POST',headers:{'Content-Type':'application/json','X-Api-Key':API_KEY},body:JSON.stringify(payload)});
       if(!res.ok)throw new Error('Server xatosi: '+res.status);
       const blob=await res.blob();
       const url=URL.createObjectURL(blob);
